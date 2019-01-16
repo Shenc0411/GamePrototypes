@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     public float tolerance = 0.8f;
 
+    public Material matRed, matBlue;
+
+
     public PLAYER turn;
     public LayerMask redLayer, blueLayer, blockerLayer;
     public Ball selectedBall;
@@ -91,6 +94,8 @@ public class GameManager : MonoBehaviour
 
             ball.selectable = true;
 
+            ball.GetComponent<SpriteRenderer>().material = matRed;
+
             if (!redIndex.ContainsKey(ball.type))
             {
                 redIndex.Add(ball.type, 0);
@@ -107,6 +112,8 @@ public class GameManager : MonoBehaviour
             ball.gameObject.layer = LayerMask.NameToLayer("Blue");
 
             ball.selectable = true;
+
+            ball.GetComponent<SpriteRenderer>().material = matBlue;
 
             if (!blueIndex.ContainsKey(ball.type))
             {

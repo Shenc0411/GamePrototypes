@@ -469,6 +469,8 @@ MonoBehaviour:
   scoreSFX: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   unscoreSFX: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
   tolerance: 0.8
+  matRed: {fileID: 2100000, guid: cb3f65585faf5a942a64236ce464f42e, type: 2}
+  matBlue: {fileID: 2100000, guid: 20d07d46c9e1b2446b51c7ab99193740, type: 2}
   turn: 0
   redLayer:
     serializedVersion: 2
