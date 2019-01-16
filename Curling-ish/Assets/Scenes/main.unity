@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 88635076}
   - component: {fileID: 88635078}
   - component: {fileID: 88635077}
+  - component: {fileID: 88635079}
   m_Layer: 10
   m_Name: Circle (6)
   m_TagString: ScoreCircle
@@ -235,6 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0
   score: 1
+  redScore: 0
+  blueScore: 0
 --- !u!212 &88635078
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -283,6 +286,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &88635079
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88635075}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49999997
 --- !u!1 &112581467
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +466,9 @@ MonoBehaviour:
   message: {fileID: 1650128301}
   audioSource: {fileID: 1813194781}
   bounceSFX: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  scoreSFX: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  unscoreSFX: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
+  tolerance: 0.8
   turn: 0
   redLayer:
     serializedVersion: 2
@@ -513,7 +535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &198113987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -619,7 +641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &323631285
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -794,6 +816,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 1
 --- !u!50 &362615613
 Rigidbody2D:
   serializedVersion: 4
@@ -908,7 +931,7 @@ Transform:
   m_GameObject: {fileID: 492502309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_Children: []
   m_Father: {fileID: 326173252}
   m_RootOrder: 1
@@ -930,6 +953,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 2
+  owner: 0
 --- !u!50 &492502312
 Rigidbody2D:
   serializedVersion: 4
@@ -984,7 +1008,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f887154449a79cd40a6abf9fe686d614, type: 2}
+  - {fileID: 2100000, guid: cb3f65585faf5a942a64236ce464f42e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1233,6 +1257,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 0
 --- !u!1 &551473547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1309,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 1
 --- !u!50 &551473550
 Rigidbody2D:
   serializedVersion: 4
@@ -1385,7 +1411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &564807278
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1459,6 +1485,7 @@ GameObject:
   - component: {fileID: 570824205}
   - component: {fileID: 570824207}
   - component: {fileID: 570824206}
+  - component: {fileID: 570824208}
   m_Layer: 10
   m_Name: Circle (4)
   m_TagString: ScoreCircle
@@ -1494,6 +1521,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0
   score: 5
+  redScore: 0
+  blueScore: 0
 --- !u!212 &570824207
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1542,6 +1571,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &570824208
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570824204}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &679269032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1598,7 @@ GameObject:
   - component: {fileID: 679269034}
   - component: {fileID: 679269033}
   - component: {fileID: 679269035}
+  - component: {fileID: 679269036}
   m_Layer: 10
   m_Name: Circle (2)
   m_TagString: ScoreCircle
@@ -1635,7 +1681,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0
-  score: 5
+  score: 2
+  redScore: 0
+  blueScore: 0
+--- !u!58 &679269036
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679269032}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &684295545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,6 +1749,7 @@ GameObject:
   - component: {fileID: 783338679}
   - component: {fileID: 783338678}
   - component: {fileID: 783338680}
+  - component: {fileID: 783338677}
   m_Layer: 10
   m_Name: Circle
   m_TagString: ScoreCircle
@@ -1692,6 +1757,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!58 &783338677
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783338676}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!212 &783338678
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1767,7 +1848,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0
-  score: 10
+  score: 3
+  redScore: 0
+  blueScore: 0
 --- !u!1 &793318924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,6 +1902,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 0
 --- !u!50 &793318927
 Rigidbody2D:
   serializedVersion: 4
@@ -1991,6 +2075,7 @@ GameObject:
   - component: {fileID: 899715805}
   - component: {fileID: 899715804}
   - component: {fileID: 899715806}
+  - component: {fileID: 899715803}
   m_Layer: 10
   m_Name: Circle (1)
   m_TagString: ScoreCircle
@@ -1998,6 +2083,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!58 &899715803
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899715802}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!212 &899715804
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2073,7 +2174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0
-  score: 20
+  score: 5
+  redScore: 0
+  blueScore: 0
 --- !u!1 &973144377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2092,7 +2195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &973144378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2317,6 +2420,116 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1133646275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133646279}
+  - component: {fileID: 1133646278}
+  - component: {fileID: 1133646277}
+  - component: {fileID: 1133646276}
+  m_Layer: 0
+  m_Name: Red Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1133646276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133646275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7f222eed236994f8ec9db888554747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &1133646277
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133646275}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!212 &1133646278
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133646275}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 78a6b22aa3d818d45b7f628acb9f3add, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 9aaa1ac7ae080014ca4492c5112d0094, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1133646279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133646275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_Children:
+  - {fileID: 2003278397}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162132124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,6 +2656,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 1
 --- !u!50 &1223071152
 Rigidbody2D:
   serializedVersion: 4
@@ -2607,6 +2821,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232647924}
   m_CullTransparentMesh: 0
+--- !u!1 &1291194457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1291194458}
+  - component: {fileID: 1291194459}
+  m_Layer: 11
+  m_Name: Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1291194458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291194457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1624447031}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1291194459
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291194457}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1340214866
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,7 +2886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1340214867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2898,6 +3159,7 @@ GameObject:
   - component: {fileID: 1403980502}
   - component: {fileID: 1403980504}
   - component: {fileID: 1403980503}
+  - component: {fileID: 1403980505}
   m_Layer: 10
   m_Name: Circle (3)
   m_TagString: ScoreCircle
@@ -2933,6 +3195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0
   score: 5
+  redScore: 0
+  blueScore: 0
 --- !u!212 &1403980504
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2981,6 +3245,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1403980505
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403980501}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1559357228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,6 +3312,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 0
 --- !u!50 &1559357231
 Rigidbody2D:
   serializedVersion: 4
@@ -3154,6 +3435,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 2
+  owner: 1
 --- !u!50 &1568389134
 Rigidbody2D:
   serializedVersion: 4
@@ -3208,7 +3490,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab57e833ed976e542bf88251c5820362, type: 2}
+  - {fileID: 2100000, guid: 20d07d46c9e1b2446b51c7ab99193740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3248,7 +3530,7 @@ Transform:
   m_GameObject: {fileID: 1568389132}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_Children: []
   m_Father: {fileID: 1957209821}
   m_RootOrder: 0
@@ -3425,6 +3707,116 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1624447027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624447031}
+  - component: {fileID: 1624447030}
+  - component: {fileID: 1624447029}
+  - component: {fileID: 1624447028}
+  m_Layer: 0
+  m_Name: Blue Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624447028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624447027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7f222eed236994f8ec9db888554747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &1624447029
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624447027}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!212 &1624447030
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624447027}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 78a6b22aa3d818d45b7f628acb9f3add, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 9aaa1ac7ae080014ca4492c5112d0094, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1624447031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624447027}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_Children:
+  - {fileID: 1291194458}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650128299
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,6 +4028,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 1
 --- !u!50 &1679595304
 Rigidbody2D:
   serializedVersion: 4
@@ -3859,6 +4252,7 @@ GameObject:
   - component: {fileID: 1832376085}
   - component: {fileID: 1832376087}
   - component: {fileID: 1832376086}
+  - component: {fileID: 1832376088}
   m_Layer: 10
   m_Name: Circle (5)
   m_TagString: ScoreCircle
@@ -3893,7 +4287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0
-  score: 2
+  score: 1
+  redScore: 0
+  blueScore: 0
 --- !u!212 &1832376087
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3942,6 +4338,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1832376088
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832376084}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1885048922
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,7 +4371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1885048923
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4169,6 +4581,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2003278396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2003278397}
+  - component: {fileID: 2003278398}
+  m_Layer: 11
+  m_Name: Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2003278397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003278396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1133646279}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &2003278398
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003278396}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2018009401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4186,7 +4645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &2018009402
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4326,6 +4785,7 @@ MonoBehaviour:
   radius: 0
   isMoving: 0
   scoreMultiplier: 1
+  owner: 0
 --- !u!50 &2057505952
 Rigidbody2D:
   serializedVersion: 4

@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip bounceSFX;
+    public AudioClip scoreSFX;
+    public AudioClip unscoreSFX;
+
+    public float tolerance = 0.8f;
 
     public PLAYER turn;
     public LayerMask redLayer, blueLayer, blockerLayer;
@@ -83,6 +87,7 @@ public class GameManager : MonoBehaviour
         Dictionary<int, int> redIndex = new Dictionary<int, int>();
         foreach(Ball ball in redBalls)
         {
+            ball.gameObject.layer = LayerMask.NameToLayer("Red");
 
             ball.selectable = true;
 
@@ -99,6 +104,7 @@ public class GameManager : MonoBehaviour
         Dictionary<int, int> blueIndex = new Dictionary<int, int>();
         foreach (Ball ball in blueBalls)
         {
+            ball.gameObject.layer = LayerMask.NameToLayer("Blue");
 
             ball.selectable = true;
 
@@ -142,11 +148,16 @@ public class GameManager : MonoBehaviour
 
                 if (hit)
                 {
-                    Debug.Log(hit.transform.name);
+                    //Debug.Log(hit.transform.name);
                     Ball ball = hit.transform.gameObject.GetComponent<Ball>();
                     if (ball.selectable)
                     {
                         selectedBall = ball;
+
+                        Debug.Log(ball.GetComponent<SpriteRenderer>().material.color);
+                        ball.GetComponent<SpriteRenderer>().material.color = ball.owner == PLAYER.RED ? Color.red : Color.blue;
+
+                        Debug.Log(ball.GetComponent<SpriteRenderer>().material.color);
                     }
                 }
             }
@@ -189,7 +200,7 @@ public class GameManager : MonoBehaviour
 
         foreach(Ball ball in redBalls)
         {
-            redScore += ball.CalculateScore();
+            //redScore += ball.CalculateScore();
             if(ball.isMoving || ball.selectable)
             {
                 finished = false;
@@ -205,7 +216,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Ball ball in blueBalls)
         {
-            blueScore += ball.CalculateScore();
+            //blueScore += ball.CalculateScore();
             if (ball.isMoving || ball.selectable)
             {
                 finished = false;
@@ -215,6 +226,12 @@ public class GameManager : MonoBehaviour
             {
                 turnsLeft = true;
             }
+        }
+
+        foreach(ScoreCircle circle in scoreCircles)
+        {
+            redScore += circle.redScore;
+            blueScore += circle.blueScore;
         }
 
         if (finished)

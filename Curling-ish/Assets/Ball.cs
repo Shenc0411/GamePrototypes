@@ -13,6 +13,8 @@ public class Ball : MonoBehaviour
     [Range(1, 10)]
     public int scoreMultiplier;
 
+    public PLAYER owner;
+
     private void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
@@ -23,6 +25,22 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         isMoving = RB.velocity.magnitude > 0.01f;
+
+        if (!selectable)
+        {
+            Color color = owner == PLAYER.RED ? Color.red : Color.blue;
+
+            Color.RGBToHSV(color, out float h, out float s, out float v);
+
+            Vector2 p = new Vector2(transform.position.x, transform.position.y);
+
+            color = Color.HSVToRGB(h, s, Mathf.Clamp01(1.5f / p.magnitude) * 0.8f + 0.2f);
+
+            GetComponent<SpriteRenderer>().material.color = color;
+        }
+
+        
+
     }
 
 
@@ -33,8 +51,13 @@ public class Ball : MonoBehaviour
         selectable = false;
     }
 
+    [System.Obsolete]
     public int CalculateScore()
     {
+        if (selectable)
+        {
+            return 0;
+        }
 
         int score = 0;
 
@@ -59,6 +82,16 @@ public class Ball : MonoBehaviour
         }
 
         //score += (int)(Mathf.Clamp01(1.0f / pos.magnitude) * 4.0f);
+
+        Color color = owner == PLAYER.RED ? Color.red : Color.blue;
+
+        Color.RGBToHSV(color, out float h, out float s, out float v);
+
+        Vector2 p = new Vector2(transform.position.x, transform.position.y);
+
+        color = Color.HSVToRGB(h, s, Mathf.Clamp01(1.0f / p.magnitude) * 0.8f + 0.2f);
+
+        GetComponent<SpriteRenderer>().material.color = color;
 
         return score * scoreMultiplier;
     }
