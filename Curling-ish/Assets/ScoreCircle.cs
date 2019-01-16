@@ -16,6 +16,12 @@ public class ScoreCircle : MonoBehaviour
     private void Awake()
     {
         radius = transform.lossyScale.x / 2.0f;
+        Reset();
+    }
+
+    public void Reset()
+    {
+        inside.Clear();
         redScore = 0;
         blueScore = 0;
     }

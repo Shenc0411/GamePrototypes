@@ -87,6 +87,11 @@ public class GameManager : MonoBehaviour
         redScore = 0;
         blueScore = 0;
 
+        foreach(ScoreCircle circle in scoreCircles)
+        {
+            circle.Reset();
+        }
+
         Dictionary<int, int> redIndex = new Dictionary<int, int>();
         foreach(Ball ball in redBalls)
         {
