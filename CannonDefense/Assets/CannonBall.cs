@@ -17,8 +17,17 @@ public class CannonBall : MonoBehaviour
     private void Awake()
     {
         bCanExplode = true;
-        GameObject shotFX = Instantiate(shotFXPrefab, transform.position, Quaternion.identity);
-        shotFX.transform.localScale /= 2.0f;
+
+        if (GameManager.instance.enableParticleEffect)
+        {
+            GameObject shotFX = Instantiate(shotFXPrefab, transform.position, Quaternion.identity);
+            shotFX.transform.localScale /= 2.0f;
+            if (!GameManager.instance.enableSoundEffect)
+            {
+                shotFX.GetComponent<AudioSource>().enabled = false;
+            }
+        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -31,14 +40,25 @@ public class CannonBall : MonoBehaviour
         bCanExplode = false;
 
         Vector3 explosionPos = transform.position;
+        if (GameManager.instance.enableParticleEffect)
+        {
+            GameObject explosionFX = Instantiate(explosionFXPrefab, explosionPos, Quaternion.identity);
 
-        GameObject explosionFX = Instantiate(explosionFXPrefab, explosionPos, Quaternion.identity);
+            explosionFX.transform.localScale = new Vector3(explosionRadius, explosionRadius, explosionRadius);
 
-        explosionFX.transform.localScale = new Vector3(explosionRadius, explosionRadius, explosionRadius);
+            explosionFX.transform.localScale /= 4.0f;
 
-        explosionFX.transform.localScale /= 4.0f;
+            if (!GameManager.instance.enableSoundEffect)
+            {
+                explosionFX.GetComponent<AudioSource>().enabled = false;
+            }
+        }
 
-        EZCameraShake.CameraShaker.Instance.ShakeOnce(3, 4, 0.1f, 1);
+        if (GameManager.instance.enableCameraShake)
+        {
+            EZCameraShake.CameraShaker.Instance.ShakeOnce(3, 4, 0.1f, 1);
+        }
+        
 
         Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
         foreach (Collider hit in colliders)

@@ -24,9 +24,25 @@ public class CameraControl : MonoBehaviour
 
         Quaternion realRotation = Quaternion.LookRotation(cannonBarrelTransform.position + forward * 10f - realPosition);
 
-        transform.position = Vector3.Lerp(transform.position, realPosition, lerpRate * Time.deltaTime);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, realRotation, lerpRate * Time.deltaTime);
+        if (GameManager.instance.enableSmoothCameraFollow)
+        {
+            transform.position = Vector3.Lerp(transform.position, realPosition, lerpRate * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = realPosition;
+        }
+
+        if (GameManager.instance.enableSmoothCameraFollow)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, realRotation, lerpRate * Time.deltaTime);
+        }
+        else
+        {
+            transform.rotation = realRotation;
+        }
+
     }
 
 

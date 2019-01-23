@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public GameObject deadEnemyPartsParent;
+    public GameObject enemyPartsParent;
 
     public LayerMask enemyLayerMask;
     public LayerMask loseLayerMask;
@@ -30,6 +30,19 @@ public class GameManager : MonoBehaviour
     public AudioClip collisionSFX;
     private AudioSource AS;
 
+
+    public bool enableDissolveShader;
+
+    public bool enableParticleEffect;
+
+    public bool enableSoundEffect;
+
+    public bool enableSmoothCameraFollow;
+
+    public bool enableAllowEnemyParts;
+
+    public bool enableCameraShake;
+
     void Awake()
     {
         instance = this;
@@ -49,6 +62,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!enableAllowEnemyParts)
+        {
+            int n = enemyPartsParent.transform.childCount;
+
+            for(int i = 0; i < n; i++)
+            {
+                enemyPartsParent.transform.GetChild(i).GetComponent<AutoDestroy>().Destroy();
+            }
+        }
 
         enemySpawnTimer += Time.deltaTime;
         if(enemySpawnTimer >= enemySpawnInterval)
@@ -84,11 +107,6 @@ public class GameManager : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, position, rotation);
 
         enemyGO.GetComponent<NavMeshAgent>().SetDestination(cannonGO.transform.position);
-    }
-
-    public void OnLose()
-    {
-        Debug.Log("Lose");
     }
 
     public void PlayCollisionSFX(float volume)

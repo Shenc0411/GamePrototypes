@@ -64,7 +64,10 @@ public class CannonControl : MonoBehaviour
             GameObject cannonBall = Instantiate(cannonBallPrefab, openningTransform.position, Quaternion.identity);
             cannonBall.GetComponent<Rigidbody>().AddForce(transform.forward * 40f, ForceMode.Impulse);
 
-            EZCameraShake.CameraShaker.Instance.ShakeOnce(3, 4, 0.1f, 1);
+            if (GameManager.instance.enableCameraShake)
+            {
+                EZCameraShake.CameraShaker.Instance.ShakeOnce(3, 4, 0.1f, 1);
+            }
 
             bCanFire = false;
             

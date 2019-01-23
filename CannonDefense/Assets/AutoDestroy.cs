@@ -22,6 +22,8 @@ public class AutoDestroy : MonoBehaviour
     private void Awake()
     {
         MR = GetComponent<MeshRenderer>();
+
+        destroyValue = GameManager.instance.enableDissolveShader ? 0.0f : 1.0f;
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class AutoDestroy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer != gameObject.layer)
+        if(collision.gameObject.layer != gameObject.layer || !GameManager.instance.enableSoundEffect)
         {
             return;
         }
@@ -73,6 +75,11 @@ public class AutoDestroy : MonoBehaviour
         {
             bDestroy = true;
         }
+    }
+
+    public void Destroy()
+    {
+        bDestroy = true;
     }
 
 }

@@ -49,7 +49,8 @@ public class Enemy : MonoBehaviour
 
         isFadingIn = true;
 
-        fadeInValue = 0.5f;
+        fadeInValue = GameManager.instance.enableDissolveShader ? 0.8f : 0.0f;
+
     }
 
     // Start is called before the first frame update
@@ -131,7 +132,7 @@ public class Enemy : MonoBehaviour
 
         foreach(GameObject bodyPart in bodyParts)
         {
-            bodyPart.transform.SetParent(GameManager.instance.deadEnemyPartsParent.transform);
+            bodyPart.transform.SetParent(GameManager.instance.enemyPartsParent.transform);
 
             bodyPart.GetComponent<Collider>().enabled = true;
 
@@ -147,12 +148,5 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer == GameManager.instance.loseLayer)
-        {
-            GameManager.instance.OnLose();
-        }
-    }
 
 }
