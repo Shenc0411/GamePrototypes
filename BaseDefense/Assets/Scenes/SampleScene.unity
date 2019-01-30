@@ -3120,7 +3120,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionFX: {fileID: 1678728823176512, guid: 6a342b4d22c62404baf7bd6057f1bdb3,
     type: 3}
+  fireFX: {fileID: 1579546626485678, guid: 7db58c0e931b44d52826ad1829194c32, type: 3}
   coreGO: {fileID: 577591381}
+  bulletPrefab: {fileID: 3284602510982066202, guid: 72649e0e10ac71a4990c982d5f6d0934,
+    type: 3}
   waveCounter: {fileID: 986013557}
   waveTimerUI: {fileID: 609048190}
   goldCounter: {fileID: 1488427072}
@@ -3146,6 +3149,9 @@ MonoBehaviour:
   buildingLayer:
     serializedVersion: 2
     m_Bits: 1024
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   initialGold: 500
   gold: 0
   workers: 0
@@ -3157,7 +3163,7 @@ MonoBehaviour:
   waveTimer: 0
   initialEnemyPerWave: 10
   enemysLeft: 0
-  numHouses: 2
+  numHouses: 0
   numPowerplants: 0
 --- !u!1 &1668496501
 GameObject:
