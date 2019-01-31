@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
+
+    public TextMeshProUGUI killCounterUI;
 
     public GameObject enemyPartsParent;
 
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour
     public AudioClip collisionSFX;
     private AudioSource AS;
 
+    public int killCounter = 0;
 
     public bool enableDissolveShader;
 
@@ -51,6 +56,8 @@ public class GameManager : MonoBehaviour
         loseLayer = (int)Mathf.Log(loseLayerMask.value, 2);
 
         AS = GetComponent<AudioSource>();
+
+        killCounter = 0;
     }
 
     // Start is called before the first frame update
@@ -62,6 +69,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        UpdateKillCounter();
 
         if (!enableAllowEnemyParts)
         {
@@ -82,6 +91,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void UpdateKillCounter()
+    {
+        killCounterUI.text = "Kills: " + killCounter;
+    }
 
     private void SpawnEnemys(int num)
     {

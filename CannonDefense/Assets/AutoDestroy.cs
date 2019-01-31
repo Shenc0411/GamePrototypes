@@ -5,7 +5,7 @@ using UnityEngine;
 public class AutoDestroy : MonoBehaviour
 {
 
-    public static float time = 10;
+    public static float time = 20;
 
     private float timer = 0.0f;
 
@@ -17,7 +17,7 @@ public class AutoDestroy : MonoBehaviour
 
     private MeshRenderer MR;
 
-    private int hitCounter = 2;
+    private int hitCounter = 3;
 
     private void Awake()
     {

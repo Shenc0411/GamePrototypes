@@ -30,6 +30,11 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.powerSupply < 0)
+        {
+            return;
+        }
+
         if(target == null)
         {
             float minSqr = float.MaxValue;

@@ -142,6 +142,8 @@ public class Enemy : MonoBehaviour
             bodyPart.AddComponent<AutoDestroy>();
         }
 
+        GameManager.instance.killCounter += 1;
+
         Destroy(gameObject);
 
         return partRBs.ToArray();

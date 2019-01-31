@@ -62,7 +62,7 @@ public class PlaceableObject : MonoBehaviour
 
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
             {
                 //Cancel placement
                 BuildManager.instance.OnPlacingCancelled();

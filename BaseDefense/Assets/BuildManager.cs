@@ -92,7 +92,7 @@ public class BuildManager : MonoBehaviour
                     {
                         GameManager.instance.gold += prevHighlighted.gameObject.GetComponent<House>().CalculateValue() / 2;
 
-                        if (prevHighlighted.gameObject == GameManager.instance.selectedBuilding.gameObject)
+                        if (GameManager.instance.selectedBuilding != null && prevHighlighted.gameObject == GameManager.instance.selectedBuilding.gameObject)
                         {
                             GameManager.instance.HideBuildingInfo();
                         }
@@ -110,7 +110,7 @@ public class BuildManager : MonoBehaviour
                         
                         GameManager.instance.gold += prevHighlighted.gameObject.GetComponent<Powerplant>().CalculateValue() / 2;
 
-                        if (prevHighlighted.gameObject == GameManager.instance.selectedBuilding.gameObject)
+                        if (GameManager.instance.selectedBuilding != null && prevHighlighted.gameObject == GameManager.instance.selectedBuilding.gameObject)
                         {
                             GameManager.instance.HideBuildingInfo();
                         }
@@ -124,7 +124,7 @@ public class BuildManager : MonoBehaviour
                 {
                     GameManager.instance.gold += prevHighlighted.gameObject.GetComponent<Wall>().CalculateValue() / 2;
 
-                    if (prevHighlighted.gameObject == GameManager.instance.selectedBuilding.gameObject)
+                    if (GameManager.instance.selectedBuilding != null && prevHighlighted.gameObject == GameManager.instance.selectedBuilding.gameObject)
                     {
                         GameManager.instance.HideBuildingInfo();
                     }
@@ -135,7 +135,7 @@ public class BuildManager : MonoBehaviour
 
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
             {
                 currentBuildingType = BuildingType.NONE;
 
@@ -179,8 +179,6 @@ public class BuildManager : MonoBehaviour
         if(currentPlacingGO.GetComponent<House>() != null)
         {
             GameManager.instance.gold -= House.cost;
-            GameManager.instance.numHouses++;
-            GameManager.instance.workers += House.workersProvided;
         }
         else if (currentPlacingGO.GetComponent<Wall>() != null)
         {
@@ -189,12 +187,11 @@ public class BuildManager : MonoBehaviour
         else if (currentPlacingGO.GetComponent<Powerplant>() != null)
         {
             GameManager.instance.gold -= Powerplant.cost;
-            GameManager.instance.numPowerplants++;
-            GameManager.instance.workers -= Powerplant.workersNeeded;
-            GameManager.instance.powerSupply += Powerplant.powerSupply;
         }
 
         buildings.Add(currentPlacingGO.GetComponent<Building>());
+
+        currentPlacingGO.GetComponent<Building>().OnPlaced();
 
         currentPlacingGO = null;
         currentBuildingType = BuildingType.NONE;

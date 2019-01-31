@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public TextMeshProUGUI coreHealth;
+
     public GameObject explosionFX;
     public GameObject fireFX;
 
@@ -64,12 +66,7 @@ public class GameManager : MonoBehaviour
     public int enemysLeft;
     public HashSet<Enemy> enemys;
 
-
-    public int numHouses;
-
-    public int numPowerplants;
-
-
+    private int incomePerSecond;
 
     private void Awake()
     {
@@ -85,10 +82,10 @@ public class GameManager : MonoBehaviour
         houseDescription.text = "House: \ncosts " + House.cost + " golds; provides " + 
             House.goldPerSecond + " golds per second; provides " + House.workersProvided + " workers"; 
 
-        wallDescription.text = "Wall: \ncosts " + Wall.cost + " golds; costs " + Wall._upgradeCost + " golds, " + Wall._upgradePowerCost + " power supply to be upgraded to a turret";
+        wallDescription.text = "Wall: \ncosts " + Wall.cost + " golds; costs " + Wall._upgradeCost + " golds, " + Wall._upgradePowerCost + " power supply to be upgraded to a turret, which costs " + Wall._costPerSeocnd + " golds per second";
 
         powerplantDescription.text = "Powerplant: \ncosts " + Powerplant.cost + " golds; provides " +
-            Powerplant.powerSupply + " power supply; needs " + Powerplant.workersNeeded + " workers";
+            Powerplant.powerSupply + " power supply; needs " + Powerplant.workersNeeded + " workers; costs " + Powerplant.costPerSecond + " golds per second";
         
         demolishDescription.text = "Demolish:\n" + "Demolish a building; gets 50% of its current value";
 
@@ -119,13 +116,56 @@ public class GameManager : MonoBehaviour
         }
 
         //Update Info
-        incomeTimer -= Time.deltaTime;
-        if(incomeTimer <= 0)
+        
+
+        int numHouses = 0;
+        int numPowerplants = 0;
+        int numTurrets = 0;
+
+        foreach(House h in House.activeSet)
         {
-            gold += numHouses * House.goldPerSecond;
+            if(h != null)
+            {
+                numHouses++;
+            }
+        }
+
+        foreach(Powerplant p in Powerplant.activeSet)
+        {
+            if(p != null)
+            {
+                numPowerplants++;
+            }
+        }
+
+        foreach(Wall w in Wall.activeSet)
+        {
+            if(w != null && w.upgraded)
+            {
+                numTurrets++;
+            }
+        }
+
+        //Debug.Log(numHouses + " " + numPowerplants + " " + numTurrets);
+
+        workers = numHouses * House.workersProvided - numPowerplants * Powerplant.workersNeeded;
+
+        powerSupply = numPowerplants * Powerplant.powerSupply - numTurrets * Wall._upgradePowerCost;
+
+        if(workers < 0)
+        {
+            powerSupply = numPowerplants * Powerplant.powerSupply / 2;
+            powerSupply -= numTurrets * Wall._upgradePowerCost;
+        }
+
+        incomeTimer -= Time.deltaTime;
+        if (incomeTimer <= 0)
+        {
+            incomePerSecond = numHouses * House.goldPerSecond - numTurrets * Wall._costPerSeocnd - numPowerplants * Powerplant.costPerSecond;
+
+            gold += incomePerSecond;
             incomeTimer = 1.0f;
         }
-        
 
         UpdateUI();
 
@@ -148,10 +188,12 @@ public class GameManager : MonoBehaviour
     public void UpdateUI()
     {
         waveCounter.text = "Waves: " + wave;
-        goldCounter.text = "Gold: " + (int)gold;
+        goldCounter.text = "Gold: " + gold + "(" + (incomePerSecond >= 0 ? "+" + incomePerSecond : incomePerSecond.ToString()) + " per sec)" ;
         workerCounter.text = "Available Workers: " + workers;
         powerCounter.text = "PowerSupply: " + powerSupply;
         waveTimerUI.text = "Next Wave in " + (int)waveTimer + " secs";
+
+        coreHealth.text = "Core Health: " + coreGO.GetComponent<Core>().health + " / " + coreGO.GetComponent<Core>().maxHealth;
 
         buildHouseButton.interactable = gold >= House.cost;
 

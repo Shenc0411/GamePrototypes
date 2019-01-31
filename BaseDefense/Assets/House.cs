@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class House : Building
 {
+
+    public static HashSet<House> activeSet = new HashSet<House>();
+
     public static int cost = 300;
     public static int workersProvided = 5;
     public static int goldPerSecond = 20;
@@ -18,6 +21,12 @@ public class House : Building
         _cost = cost;
     }
 
+    public override void OnPlaced()
+    {
+        base.OnPlaced();
+        activeSet.Add(this);
+    }
+
     public override string GetTypeName()
     {
         return "House";
@@ -25,7 +34,12 @@ public class House : Building
 
     private void OnDestroy()
     {
-        GameManager.instance.workers -= workersProvided;
-        GameManager.instance.numHouses--;
+
+        if (activeSet.Contains(this))
+        {
+            activeSet.Remove(this);
+        }
+
+        BuildManager.instance.buildings.Remove(this);
     }
 }

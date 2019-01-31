@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public static int minHealth = 30;
     public static float maxSpeed = 5;
     public static float minSpeed = 3;
-    public static float explosionRadius = 2;
+    public static float explosionRadius = 4;
     public static int damage = 5;
 
     public float speed;
@@ -26,7 +26,15 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         MR = GetComponentInChildren<MeshRenderer>();
-        target = GameManager.instance.coreGO.transform.position;
+
+        int index = Random.Range(0, BuildManager.instance.buildings.Count);
+
+        target = BuildManager.instance.buildings[index].transform.position;
+
+        if(target == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -75,7 +83,7 @@ public class Enemy : MonoBehaviour
         GameObject GO = Instantiate(GameManager.instance.explosionFX);
         GO.transform.position = transform.position;
         GO.transform.localScale = Vector3.one * explosionRadius * 2.0f;
-        Debug.Log("exploded!");
+
         GameManager.instance.enemys.Remove(this);
         Destroy(gameObject);
     }

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Wall : Building
 {
+    public static HashSet<Wall> activeSet = new HashSet<Wall>();
+
     public static int cost = 50;
     public static int _maxHealth = 30;
     public static int _upgradeCost = 400;
     public static int _upgradePowerCost = 10;
     public static int _upgradeWorkerCost = 0;
+    public static int _costPerSeocnd = 15;
+
 
     public GameObject turret;
     public bool upgraded;
@@ -33,6 +37,14 @@ public class Wall : Building
         return "Wall";
     }
 
+    public override void OnPlaced()
+    {
+        base.OnPlaced();
+        if (!activeSet.Contains(this))
+        {
+            activeSet.Add(this);
+        }
+    }
     public override void OnUpgrade()
     {
         base.OnUpgrade();
@@ -45,9 +57,11 @@ public class Wall : Building
 
     private void OnDestroy()
     {
-        if (upgraded)
+        if (activeSet.Contains(this))
         {
-            GameManager.instance.powerSupply += _upgradePowerCost;
+            activeSet.Remove(this);
         }
+
+        BuildManager.instance.buildings.Remove(this);
     }
 }

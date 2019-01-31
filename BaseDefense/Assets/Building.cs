@@ -28,6 +28,11 @@ public class Building : MonoBehaviour
         }
     }
 
+    public virtual void OnPlaced()
+    {
+
+    }
+
     public virtual void OnDamage(int damage)
     {
         health -= damage;
@@ -62,5 +67,6 @@ public class Building : MonoBehaviour
     {
         Debug.Log("Upgraded " + name);
     }
+
 }
 
