@@ -6,10 +6,21 @@ public class BalloonControl : MonoBehaviour
 {
     public Rigidbody2D RB;
     public float forceFactor = 10f;
-    public float size = 1;
+    public float size = 2;
     public float speed = 0.5f;
     public GameObject circle;
     public GameObject triangle;
+
+    public void Initialize()
+    {
+        transform.position = Vector2.zero;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+        RB.velocity = Vector3.zero;
+        RB.angularVelocity = 0;
+        RB.constraints = RigidbodyConstraints2D.None;
+        size = 2;
+
+    }
 
     private void Awake()
     {

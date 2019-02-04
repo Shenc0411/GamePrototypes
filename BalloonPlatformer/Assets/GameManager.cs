@@ -30,34 +30,60 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+    }
+
+    public void Initialize()
+    {
+
+        if(floorGOs != null)
+        {
+            foreach(GameObject GO in floorGOs)
+            {
+                Destroy(GO);
+            }
+        }
+
         hasEnded = false;
         floorGOs = new HashSet<GameObject>();
         GenerateFloor(new Vector2(-minWidth - (maxWidth - minWidth) / 2.0f, -2));
 
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             Vector2 rightMostPos = GetRightMostPosition();
-            Vector2 offset = new Vector2(Random.Range(minDistance, maxDistance), 0);
-            GenerateFloor(rightMostPos + offset);
+            Vector2 offset = new Vector2(Random.Range(minDistance, maxDistance), Random.Range(-1f, 1f));
+            Vector2 pos = rightMostPos + offset;
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            GenerateFloor(pos);
         }
 
         gameoverPanel.SetActive(false);
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        BC.Initialize();
+        Initialize();
+        SpikeGenerater.instance.Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            BC.Initialize();
+            Initialize();
+            SpikeGenerater.instance.Initialize();
+        }
+
         if (hasEnded)
             return;
 
-        if(GetRightMostPosition().x < BC.transform.position.x + 10f)
+        if (GetRightMostPosition().x < BC.transform.position.x + 20f)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -96,13 +122,15 @@ public class GameManager : MonoBehaviour
         Vector3 size = new Vector3(Random.Range(minWidth, maxWidth), 0.5f, 1.0f);
         GO.transform.position = new Vector3(position.x + size.x, position.y);
         GO.transform.localScale = size;
+        GO.name = "Floor" + GO.GetHashCode();
         floorGOs.Add(GO);
-        float r = Random.Range(0.0f, 1.0f);
-        if(r < probPumpStation)
+        if(Random.Range(0.0f, 1.0f) < probPumpStation)
         {
             GameObject fGO = Instantiate(pumpStationPrefab);
             float x = Random.Range(-size.x / 2.0f + 0.5f, size.x / 2.0f - 0.5f);
-            fGO.transform.position = new Vector3(x + GO.transform.position.x, GO.transform.position.y + 1f, 0.0f);
+            float y = Random.Range(1f, 2f);
+            fGO.transform.position = new Vector3(x + GO.transform.position.x, GO.transform.position.y + y, 0.0f);
+            fGO.name = "Pump -" + GO.name;
         }
     }
     

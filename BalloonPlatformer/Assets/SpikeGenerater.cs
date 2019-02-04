@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpikeGenerater : MonoBehaviour
 {
 
+    public static SpikeGenerater instance;
+
     private Dictionary<int, GameObject> lowerSpikeGOs;
     private Dictionary<int, GameObject> upperSpikeGOs;
     public GameObject spikePrefab;
@@ -16,6 +18,26 @@ public class SpikeGenerater : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+    }
+
+    public void Initialize()
+    {
+        if (lowerSpikeGOs != null)
+        {
+            foreach (KeyValuePair<int, GameObject> pair in lowerSpikeGOs)
+            {
+                Destroy(pair.Value);
+            }
+        }
+        if (upperSpikeGOs != null)
+        {
+            foreach (KeyValuePair<int, GameObject> pair in upperSpikeGOs)
+            {
+                Destroy(pair.Value);
+            }
+        }
+
         lowerSpikeGOs = new Dictionary<int, GameObject>();
         upperSpikeGOs = new Dictionary<int, GameObject>();
         centerX = (int)balloonGO.transform.position.x;
