@@ -19,6 +19,9 @@ public class CannonControl : MonoBehaviour
     public RectTransform reloadBackground;
     public RectTransform reloadBar;
 
+    private float xRot;
+    private float yRot;
+
     private void Awake()
     {
         fireTimer = 0.0f;
@@ -28,17 +31,24 @@ public class CannonControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        xRot = 0;
+        yRot = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        
+
 
         //Rotate Barrel
-        transform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * 0.5f, Input.GetAxis("Mouse X"), 0) * Time.deltaTime * rotationSpeed);
+
+        xRot -= Input.GetAxis("Vertical") * Time.deltaTime * rotationSpeed;
+        yRot += Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
+        xRot = Mathf.Clamp(xRot, -15, 10);
+
+        transform.localRotation = Quaternion.Euler(xRot, yRot, 0);
+
 
         //Reload
         if (!bCanFire)
