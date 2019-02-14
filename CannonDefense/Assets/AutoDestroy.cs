@@ -52,21 +52,22 @@ public class AutoDestroy : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer != gameObject.layer || !GameManager.instance.enableSoundEffect)
-        {
-            return;
-        }
+    //private void OnCollisionEnter(Collision collision)
+    //{
 
-        float volume = Mathf.Clamp01(collision.relativeVelocity.magnitude / 10.0f) / 5f;
+    //    if(collision.gameObject.layer != gameObject.layer || !GameManager.instance.enableSoundEffect)
+    //    {
+    //        return;
+    //    }
 
-        if(volume > 0.1f)
-        {
-            GameManager.instance.PlayCollisionSFX(volume);
-        }
+    //    float volume = Mathf.Clamp01(collision.relativeVelocity.magnitude / 10.0f) / 5f;
 
-    }
+    //    if(volume > 0.1f)
+    //    {
+    //        GameManager.instance.PlayCollisionSFX(volume);
+    //    }
+
+    //}
 
     public void OnHit()
     {
