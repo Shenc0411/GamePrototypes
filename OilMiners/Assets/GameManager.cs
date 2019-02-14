@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        noiseOffset.x = Random.Range(0, 100.0f);
-        noiseOffset.y = Random.Range(0, 100.0f);
+        noiseOffset.x = Random.Range(0, 10000.0f);
+        noiseOffset.y = Random.Range(0, 10000.0f);
 
         GenerateTiles();
         turn = (Random.Range(0, 2) > 0) ? Player.Blue : Player.Red;
@@ -161,6 +161,8 @@ public class GameManager : MonoBehaviour
         redDrillUI.text = "Drills Left:\n" + redDrills;
         blueScoreUI.text = "Oil Reserves:\n" + (int)blueScore;
         blueDrillUI.text = "Drills Left:\n" + blueDrills;
+        redInfo.text = turn == Player.Red ? "Your Turn" : "Other's Turn";
+        blueInfo.text = turn == Player.Blue ? "Your Turn" : "Other's Turn";
     }
 
     void SwitchTurn()
@@ -188,7 +190,7 @@ public class GameManager : MonoBehaviour
                 redInfo.text = "You Won";
                 blueInfo.text = "You Lost";
             }
-            else if (redScore == blueScore)
+            else if (redScore < blueScore)
             {
                 redInfo.text = "You Lost";
                 blueInfo.text = "You Won";

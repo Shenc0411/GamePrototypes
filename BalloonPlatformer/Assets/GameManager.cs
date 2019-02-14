@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject floorPrefab;
     public GameObject pumpStationPrefab;
     private HashSet<GameObject> floorGOs;
+    private HashSet<GameObject> pumpGOs;
     public float probPumpStation;
     public float minWidth = 5f;
     public float maxWidth = 10f;
@@ -44,8 +45,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if(pumpGOs != null)
+        {
+            foreach(GameObject GO in pumpGOs)
+            {
+                Destroy(GO);
+            }
+        }
+
         hasEnded = false;
         floorGOs = new HashSet<GameObject>();
+        pumpGOs = new HashSet<GameObject>();
         GenerateFloor(new Vector2(-minWidth - (maxWidth - minWidth) / 2.0f, -2));
 
         for (int i = 0; i < 10; i++)
@@ -131,6 +141,7 @@ public class GameManager : MonoBehaviour
             float y = Random.Range(1f, 2f);
             fGO.transform.position = new Vector3(x + GO.transform.position.x, GO.transform.position.y + y, 0.0f);
             fGO.name = "Pump -" + GO.name;
+            pumpGOs.Add(fGO);
         }
     }
     

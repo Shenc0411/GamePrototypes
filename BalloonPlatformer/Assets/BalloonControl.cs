@@ -19,7 +19,7 @@ public class BalloonControl : MonoBehaviour
         RB.angularVelocity = 0;
         RB.constraints = RigidbodyConstraints2D.None;
         size = 2;
-
+        UpdateVisual();
     }
 
     private void Awake()
@@ -43,20 +43,23 @@ public class BalloonControl : MonoBehaviour
 
         if (!GameManager.instance.hasEnded && Input.GetKey(KeyCode.Space))
         {
-            RB.AddForce(-transform.up * forceFactor);
-            size -= speed * Time.deltaTime;
-
-            UpdateVisual();
+            
+            if(size >= 0.4f)
+            {
+                RB.AddForce(-transform.up * forceFactor);
+                size -= speed * Time.deltaTime;
+                UpdateVisual();
+            }else if(RB.velocity.magnitude <= 0.1f)
+            {
+                GameManager.instance.OnGameOver();
+            }
+            
         }    
     }
 
     public void UpdateVisual()
     {
-        if (size <= 0.4f && RB.velocity.magnitude < 0.1f)
-        {
-            GameManager.instance.OnGameOver();
-        }
-        else if (size <= 1.0f)
+        if (size <= 1.0f)
         {
             circle.transform.localScale = new Vector3(size, 1.0f, 1.0f);
         }
