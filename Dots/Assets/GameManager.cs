@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver;
 
+    public float timer;
+    public TextMeshProUGUI timerUI;
+
     private void Awake()
     {
         GameObject leftWall = Instantiate(wallPrefab);
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     void Initialize()
     {
-
+        timer = 60.0f;
         score = 0;
         targetSpawnTimer = 0;
         instance = this;
@@ -95,6 +98,7 @@ public class GameManager : MonoBehaviour
         }
         highestScore.text = "Highest Score:\n" + PlayerPrefs.GetInt("Score");
 
+        timerUI.text = "Time Left:\n" + (int)timer;
 
         UpdateScorePad();
 
@@ -115,6 +119,16 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            OnDeath();
+            return;
+        }
+
+        timerUI.text = "Time Left:\n" + (int)timer;
 
         targetSpawnTimer += Time.deltaTime;
         if(targetSpawnTimer >= targetSpawnInterval)

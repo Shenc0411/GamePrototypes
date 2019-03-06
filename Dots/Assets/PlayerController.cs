@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         overlappingTarget = null;
-        radius = minRadius;
+        radius = maxRadius;
         transform.localScale = radius * Vector3.one;
         RB = GetComponent<Rigidbody2D>();
         SR = GetComponent<SpriteRenderer>();
@@ -62,6 +62,10 @@ public class PlayerController : MonoBehaviour
         if(reloadValue < 1.0f)
         {
             reloadValue += reloadRate * Time.deltaTime;
+            if (reloadValue > 1.0f)
+                reloadValue = 1.0f;
+            radius = Mathf.Lerp(minRadius, maxRadius, reloadValue);
+            transform.localScale = radius * Vector3.one;
         }
 
         bool canCapture = false;
@@ -71,15 +75,15 @@ public class PlayerController : MonoBehaviour
             Vector3 dir = transform.position - overlappingTarget.transform.position;
             dir.z = 0;
             float dist = dir.magnitude;
-            float radius = transform.localScale.x;
             float otherRadius = overlappingTarget.transform.localScale.x;
             if (dist + otherRadius <= radius)
             {
                 canCapture = true;
             }
         }
+        
 
-        if (trigger > 0.2f && reloadValue >= 1.0f)
+        if (trigger > 0.2f)
         {
 
             if (canCapture)
@@ -91,21 +95,14 @@ public class PlayerController : MonoBehaviour
             }
 
             reloadValue = 0.0f;
-
+            transform.localScale = minRadius * Vector3.one;
         }
 
-        if (reloadValue >= 1.0f && canCapture)
-        {
-            Color c = Color.green;
-            c.a = maxAlpha;
-            SR.color = c;
-        }
-        else
-        {
-            Color c = Color.white;
-            c.a = Mathf.Lerp(minAlpha, maxAlpha, reloadValue);
-            SR.color = c;
-        }
+
+        Color c = canCapture? Color.green : Color.white;
+        c.a = Mathf.Lerp(minAlpha, maxAlpha, reloadValue);
+        SR.color = c;
+        
         
 
     }

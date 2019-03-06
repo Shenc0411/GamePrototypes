@@ -8,9 +8,10 @@ public class Target : MonoBehaviour
     float radius, initialRadius, finalRadius;
     SpriteRenderer SR;
     CircleCollider2D CC;
-    bool isExpanding, isDying;
+    bool isExpanding, isDying, isDecaying;
     float expandingRate, dyingRate;
     float expandingValue, dyingValue;
+    float decayingRate = 0.05f, decayingValue;
     GameObject stayingDot;
 
     private void Awake()
@@ -32,8 +33,10 @@ public class Target : MonoBehaviour
         dyingRate = GameManager.instance.targetDyingRate;
         expandingValue = 0;
         dyingValue = 0;
+        decayingValue = 0;
         isExpanding = true;
         isDying = false;
+        isDecaying = false;
     }
 
     // Update is called once per frame
@@ -74,9 +77,24 @@ public class Target : MonoBehaviour
                         GameManager.instance.OnDeath();
                     }
                 }
-                enabled = false;
+                isDying = false;
+                isDecaying = true;
+                //enabled = false;
             }
             SR.color = Color.Lerp(Color.red, Color.black, dyingValue);
+        }
+        else if (isDecaying)
+        {
+            decayingValue += decayingRate * Time.deltaTime;
+
+            if (decayingValue >= 1)
+            {
+                GameManager.instance.targetGrid[x, y] = null;
+                Destroy(gameObject);
+            }
+            Color c = SR.color;
+            c.a = Mathf.Lerp(1.0f, 0.2f, decayingValue);
+            SR.color = c;
         }
     }
 
