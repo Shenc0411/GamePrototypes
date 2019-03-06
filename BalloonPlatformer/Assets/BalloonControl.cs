@@ -41,12 +41,14 @@ public class BalloonControl : MonoBehaviour
     void Update()
     {
 
+
         if (!GameManager.instance.hasEnded && Input.GetKey(KeyCode.Space))
         {
             
             if(size >= 0.4f)
             {
-                RB.AddForce(-transform.up * forceFactor);
+                RB.AddForceAtPosition(triangle.transform.up * forceFactor, triangle.transform.position);
+                RB.AddTorque(0.1f);
                 size -= speed * Time.deltaTime;
                 UpdateVisual();
             }else if(RB.velocity.magnitude <= 0.1f)
@@ -61,12 +63,17 @@ public class BalloonControl : MonoBehaviour
     {
         if (size <= 1.0f)
         {
+            size = Mathf.Clamp(size, 0.4f, 100);
             circle.transform.localScale = new Vector3(size, 1.0f, 1.0f);
+            triangle.transform.localPosition = new Vector3(0, 0.55f, 1.0f);
         }
         else
         {
             circle.transform.localScale = new Vector3(size, size, 1.0f);
             triangle.transform.localPosition = new Vector3(0, size / 2.0f + 0.05f, 1.0f);
         }
+
+        //Physics2D.gravity = new Vector2(0, size - 3);
+
     }
 }
